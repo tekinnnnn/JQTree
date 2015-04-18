@@ -19,14 +19,14 @@
 			$("#jqtree li ul").attr("id", "hidden").hide();
 			$("ul li").has("ul").attr("id", "hiddenli");
 
-			$('li#hiddenli').click(function () {
-				$(this).children('ul#hidden').slideDown("fast").removeAttr("id").attr("id", "visible");
-				$(this).removeAttr("id").attr("id", "visibleli");
-			});
-
-			$('li#visibleli').click(function () {
-				$(this).children('ul#visible').slideUp("fast").removeAttr("id").attr("id", "hidden");
-				$(this).removeAttr("id").attr("id", "hiddenli");
+			$('li').click(function () {
+				if (this.getAttribute("id") == "hiddenli") {
+					$(this).attr("id", "visibleli");
+					$(this).children('#hidden').slideDown("fast").attr("id", "visible");
+				} else if (this.getAttribute("id") == "visibleli") {
+					$(this).attr("id", "hiddenli");
+					$(this).children('#visible').slideUp("fast").attr("id", "hidden");
+				}
 			});
 		})
 	</script>
