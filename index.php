@@ -11,28 +11,30 @@
 <html>
 <head lang="en">
 	<meta charset="UTF-8">
-	<title></title>
+	<title>jQree</title>
 	<link rel="stylesheet" href="css.css">
 	<script src="bower_components/jquery/dist/jquery.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function () {
-			$("#jqtree li ul").attr("id", "hidden").hide();
-			$("ul li").has("ul").attr("id", "hiddenli");
+			$("#jqree li > ul").attr("id","hidden").hide();
+			$("#jqree li").has("ul").attr("id", "hiddenli");
 
-			$('li').click(function () {
-				if (this.getAttribute("id") == "hiddenli") {
-					$(this).attr("id", "visibleli");
-					$(this).children('#hidden').slideDown("fast").attr("id", "visible");
-				} else if (this.getAttribute("id") == "visibleli") {
-					$(this).attr("id", "hiddenli");
-					$(this).children('#visible').slideUp("fast").attr("id", "hidden");
+			$('#jqree li').click(function () {
+				if ($(this).has("#hidden")) {
+					if (this.getAttribute("id") != "visibleli") {
+						$(this).removeAttr("id").attr("id", "visibleli");
+						$(this).children('ul').stop().slideDown("fast");
+					} else if (this.getAttribute("id") != "hiddenli") {
+						$(this).removeAttr("id").attr("id", "hiddenli");
+						$(this).children('ul').stop().slideUp("fast");
+					}
 				}
 			});
 		})
 	</script>
 </head>
 <body>
-<ul id="jqtree">
+<ul id="jqree">
 	<li>asd</li>
 	<li>asd</li>
 	<li>asd</li>
