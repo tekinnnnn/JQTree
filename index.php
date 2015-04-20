@@ -13,23 +13,21 @@
 	<meta charset="UTF-8">
 	<title>jQree</title>
 	<link rel="stylesheet" href="css.css">
-	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="jquery.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function () {
-			$("#jqree li > ul").attr("id","hidden").hide();
-			$("#jqree li").has("ul").attr("id", "hiddenli");
-
-			$('#jqree li').click(function () {
-				if ($(this).has("#hidden")) {
-					if (this.getAttribute("id") != "visibleli") {
-						$(this).removeAttr("id").attr("id", "visibleli");
-						$(this).children('ul').stop().slideDown("fast");
-					} else if (this.getAttribute("id") != "hiddenli") {
-						$(this).removeAttr("id").attr("id", "hiddenli");
-						$(this).children('ul').stop().slideUp("fast");
-					}
+			
+			$('li#baslik ul').hide();
+			$('li#baslik').click(function(){
+				var oku = $(this).children('ul');
+				
+				if(oku.attr("style") == "display: none;"){
+					$(this).children('ul').slideDown();
+				}else {
+					$(this).children('ul').slideUp();
 				}
-			});
+
+			})
 		})
 	</script>
 </head>
@@ -38,12 +36,12 @@
 	<li>asd</li>
 	<li>asd</li>
 	<li>asd</li>
-	<li>qwe
+	<li id="baslik">qwe
 		<ul>
 			<li>asd</li>
 			<li>asd</li>
 			<li>asd</li>
-			<li>qwe
+			<li id="baslik">qwe
 				<ul>
 					<li>asd</li>
 					<li>asd</li>
@@ -55,7 +53,7 @@
 	</li>
 	<li>asd</li>
 	<li>asd</li>
-	<li>qwe
+	<li id="baslik">qwe
 		<ul>
 			<li>asd</li>
 			<li>asd</li>
