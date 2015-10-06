@@ -1,0 +1,49 @@
+<html>
+<head>
+    <title>Sample Page</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="assets/css/jqueryTree.css">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+</head>
+<body>
+<div id="jqueryTree">
+    <ul>
+        <li>Link</li>
+        <li>OL
+            <ol>
+                <li>Link</li>
+                <li>Link</li>
+                <li>Link</li>
+                <li>Link</li>
+            </ol>
+        </li>
+        <li>UL
+            <ul>
+                <li>Link</li>
+                <li>Link
+                    <ol>
+                        <li>Link</li>
+                        <li>Link</li>
+                        <li>Link</li>
+                        <li>Link</li>
+                    </ol>
+                </li>
+                <li>Link</li>
+                <li>Link</li>
+            </ul>
+        </li>
+        <li>Link</li>
+        <li>Link</li>
+    </ul>
+</div>
+<script type="text/javascript" src="assets/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="assets/js/jqueryTree.js"></script>
+<script type="text/javascript">
+    var settings = {
+        "container": "#jqueryTree",
+        "collapse": false
+    };
+    jqueryTree(settings);
+</script>
+</body>
+</html>
