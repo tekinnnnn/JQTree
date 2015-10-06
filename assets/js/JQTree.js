@@ -2,9 +2,9 @@
  * Created by tekin on 10/5/15.
  */
 
-function jqueryTree(settings) {
+function JQTree(settings) {
     if (settings.container == undefined) {
-        console.error("jqueryTree'nin uygulanacagi kapsayici belirtilmelidir!");
+        console.error("JQTree'nin uygulanacagi kapsayici belirtilmelidir!");
         return false;
     } else {
         $(settings.container).addClass('JQTree');
