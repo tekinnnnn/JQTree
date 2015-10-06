@@ -26,7 +26,6 @@ function JQTree(settings) {
             collapseAll(settings.container);
         else
             expandAll(settings.container);
-        console.log(settings.collapse);
     }
 
     function hasUlorOl(element) {
@@ -79,4 +78,28 @@ function JQTree(settings) {
             .children('ul,ol')
             .hide();
     }
+
+    /*function appendImages() {
+        $(".JQTree ul li:not(.expand,.collapse),.JQTree ol li:not(.expand,.collapse)").prepend('<img src="' + settings.listImg + '">');
+        $(".JQTree li.expand").prepend('<img src="' + settings.expandListImg + '">');
+        $(".JQTree li.collapse").prepend('<img src="' + settings.collapseListImg + '">');
+    }
+
+    if (settings.listImgWidth != undefined || settings.listImgHeight) {
+        if ($("<style>") == undefined) {
+            $("<style>")
+                .prop('type', 'text/html')
+                .html('')
+                .appendTo("head");
+        }
+        $("<style>")
+            .prop("type", "text/css")
+            .html(
+            'img {' +
+            'width : ' + settings.listImgWidth + ';' +
+            'height : ' + settings.listImgHeight + ';' +
+            "}")
+            .appendTo("head");
+
+    }*/
 }
