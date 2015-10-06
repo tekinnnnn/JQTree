@@ -64,7 +64,8 @@
 }
 
 .JQTree ul li:before, .JQTree ol li:before {
-    background-image: url("../img/ic_keyboard_arrow_right_black_24px.svg");
+    /*background-image: url("../img/ic_keyboard_arrow_right_black_24px.svg");*/
+    background-image: url("../img/ic_remove_black_24px.svg");
 }
 
 .JQTree ul:before, .JQTree ol:before {
