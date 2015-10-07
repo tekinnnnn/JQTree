@@ -7,25 +7,27 @@ function JQTree(settings) {
         console.error("JQTree'nin uygulanacagi kapsayici belirtilmelidir!");
         return false;
     } else {
-        $(settings.container).addClass('JQTree');
-        var allElements = $(settings.container).children("ul,ol");
-        allElements.each(function (counter, element) {
-            // find değil children kullandım çünkü bu adımda açılır menülerin parçalarını değil açılır menülerin kendisini arıyorum
-            $(element).find("li,ul,ol").each(function (subCounter, subElement) {
-                var tag = subElement.tagName;
-                if (tag == "LI") {
+        if (cssRulesCheck()) {
+            $(settings.container).addClass('JQTree');
+            var allElements = $(settings.container).children("ul,ol");
+            allElements.each(function (counter, element) {
+                // find değil children kullandım çünkü bu adımda açılır menülerin parçalarını değil açılır menülerin kendisini arıyorum
+                $(element).find("li,ul,ol").each(function (subCounter, subElement) {
+                    var tag = subElement.tagName;
+                    if (tag == "LI") {
 
-                } else {
+                    } else {
 
-                }
-                hasUlorOl(subElement);
-            })
-        });
+                    }
+                    hasUlorOl(subElement);
+                })
+            });
 
-        if (settings.collapse == undefined && settings.collapse == true)
-            collapseAll(settings.container);
-        else
-            expandAll(settings.container);
+            if (settings.collapse == undefined && settings.collapse == true)
+                collapseAll(settings.container);
+            else
+                expandAll(settings.container);
+        }
     }
 
     function hasUlorOl(element) {
@@ -80,26 +82,55 @@ function JQTree(settings) {
     }
 
     /*function appendImages() {
-        $(".JQTree ul li:not(.expand,.collapse),.JQTree ol li:not(.expand,.collapse)").prepend('<img src="' + settings.listImg + '">');
-        $(".JQTree li.expand").prepend('<img src="' + settings.expandListImg + '">');
-        $(".JQTree li.collapse").prepend('<img src="' + settings.collapseListImg + '">');
+     $(".JQTree ul li:not(.expand,.collapse),.JQTree ol li:not(.expand,.collapse)").prepend('<img src="' + settings.listImg + '">');
+     $(".JQTree li.expand").prepend('<img src="' + settings.expandListImg + '">');
+     $(".JQTree li.collapse").prepend('<img src="' + settings.collapseListImg + '">');
+     }
+
+     if (settings.listImgWidth != undefined || settings.listImgHeight) {
+     if ($("<style>") == undefined) {
+     $("<style>")
+     .prop('type', 'text/html')
+     .html('')
+     .appendTo("head");
+     }
+     $("<style>")
+     .prop("type", "text/css")
+     .html(
+     'img {' +
+     'width : ' + settings.listImgWidth + ';' +
+     'height : ' + settings.listImgHeight + ';' +
+     "}")
+     .appendTo("head");
+
+     }*/
+}
+
+function cssRulesCheck() {
+    var bir = false;
+    var iki = false;
+    var uc = false;
+    var cssFiles = document.styleSheets;
+    $.each(cssFiles, function (i) {
+        $.each(cssFiles[i].cssRules, function (j, cssRules) {
+            if (cssRules.selectorText == ".jqtree li.expand::before" && cssRules.style.backgroundImage.length > 0)
+                bir = true;
+            if (cssRules.selectorText == ".jqtree li.collapse::before" && cssRules.style.backgroundImage.length > 0)
+                iki = true;
+            if (cssRules.selectorText == ".jqtree ul li::before, .jqtree ol li::before" && cssRules.style.backgroundImage.length > 0)
+                uc = true;
+        });
+    });
+    if (!bir) {
+        console.error("Lütfen style dosyanıza .JQTree ul li.expand:before kuralı içerisine background-image değerini verin!");
     }
-
-    if (settings.listImgWidth != undefined || settings.listImgHeight) {
-        if ($("<style>") == undefined) {
-            $("<style>")
-                .prop('type', 'text/html')
-                .html('')
-                .appendTo("head");
-        }
-        $("<style>")
-            .prop("type", "text/css")
-            .html(
-            'img {' +
-            'width : ' + settings.listImgWidth + ';' +
-            'height : ' + settings.listImgHeight + ';' +
-            "}")
-            .appendTo("head");
-
-    }*/
+    if (!iki) {
+        console.error("Lütfen style dosyanıza .JQTree ul li.collapse:before kuralı içerisine background-image değerini verin!");
+    }
+    if (!uc) {
+        console.error("Lütfen style dosyanıza .JQTree ul li:before, .JQTree ol li:before kuralı içerisine background-image değerini verin!");
+    }
+    if (!bir || !iki || !uc)
+        return false;
+    return true;
 }
