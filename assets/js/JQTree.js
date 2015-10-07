@@ -20,10 +20,10 @@ function JQTree(settings) {
                 })
             });
 
-            if (settings.collapse == undefined || settings.collapse == true)
-                collapseAll(settings.container);
-            else
+            if (settings.expand == undefined || settings.expand == true)
                 expandAll(settings.container);
+            else
+                collapseAll(settings.container);
         }
     } // TODO: css background-image lar yok ise svg oluştur onları ekle
 
@@ -112,18 +112,55 @@ function cssRulesCheck() {
                 iki = true;
             if (cssRules.selectorText == ".jqtree ul li::before, .jqtree ol li::before" && cssRules.style.backgroundImage.length > 0)
                 uc = true;
+            if ((settings.svg == undefined) && cssRules.selectorText == ".jqtree .svg" && cssRules.style.fill.length > 0)
+                settings.svgFillColor = cssRules.style.fill;
         });
     });
-    if (!bir) {
-        console.error("Lütfen style dosyanıza .JQTree ul li.expand:before kuralı içerisine background-image değerini verin!");
+
+    if (settings.svg != undefined && settings.svg.fill != undefined)
+        settings.svgFillColor = settings.svg.fill;
+    else if (settings.svgFillColor == undefined)
+        settings.svgFillColor = "#000000";
+
+    var style = (function () {
+        var style = document.createElement("style");
+        document.head.appendChild(style);
+        return style.sheet;
+    })();
+    var cssIndex = 0;
+
+    if ((!bir || !iki || !uc) || (settings.svg != undefined && settings.svg.fill != undefined)) {
+        style.addRule(".JQTree li.expand:before",
+            'background-image: url("' +
+            'data:image/svg+xml;utf8,' +
+            '<svg fill=\'' + settings.svgFillColor + '\' height=\'24\' viewBox=\'0 0 24 24\' width=\'24\' xmlns=\'http://www.w3.org/2000/svg\'>' +
+            '<path d=\'M0 0h24v24H0z\' fill=\'none\'/>' +
+            '<path d=\'M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z\'/>' +
+            '</svg>' +
+            '");',
+            cssIndex);
+        cssIndex++;
+        style.addRule(".JQTree li.collapse:before",
+            'background-image: url("' +
+            'data:image/svg+xml;utf8,' +
+            '<svg fill=\'' + settings.svgFillColor + '\' height=\'24\' viewBox=\'0 0 24 24\' width=\'24\' xmlns=\'http://www.w3.org/2000/svg\'>' +
+            '<path d=\'M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z\'/>' +
+            '<path d=\'M0 0h24v24H0z\' fill=\'none\'/>' +
+            '</svg>' +
+            '");',
+            cssIndex);
+        cssIndex++;
+        style.addRule(".JQTree ul li:before, .JQTree ol li:before",
+            'background-image: url("' +
+            'data:image/svg+xml;utf8,' +
+            '<svg fill=\'' + settings.svgFillColor + '\' height=\'24\' viewBox=\'0 0 24 24\' width=\'24\' xmlns=\'http://www.w3.org/2000/svg\'>' +
+            '<path d=\'M6 2c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6H6zm7 7V3.5L18.5 9H13z\'/>' +
+            '<path d=\'M0 0h24v24H0z\' fill=\'none\'/>' +
+            '</svg>' +
+            '");',
+            cssIndex);
+        cssIndex++;
     }
-    if (!iki) {
-        console.error("Lütfen style dosyanıza .JQTree ul li.collapse:before kuralı içerisine background-image değerini verin!");
-    }
-    if (!uc) {
-        console.error("Lütfen style dosyanıza .JQTree ul li:before, .JQTree ol li:before kuralı içerisine background-image değerini verin!");
-    }
-    if (!bir || !iki || !uc)
-        return false;
+    console.log(cssFiles);
     return true;
 }
