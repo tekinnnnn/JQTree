@@ -20,7 +20,7 @@ function JQTree(settings) {
                 })
             });
 
-            if (settings.collapse == undefined && settings.collapse == true)
+            if (settings.collapse == undefined || settings.collapse == true)
                 collapseAll(settings.container);
             else
                 expandAll(settings.container);
@@ -36,11 +36,11 @@ function JQTree(settings) {
                     return;
                 $(this).toggleClass(function () {
                     if ($(this).hasClass('collapse')) {
-                        $(this).children('ul,ol').hide();
+                        $(this).children('ul,ol').show();
                         $(this).removeClass('collapse');
                         return 'expand';
                     } else {
-                        $(this).children('ul,ol').show();
+                        $(this).children('ul,ol').hide();
                         $(this).removeClass('expand');
                         return 'collapse';
                     }
@@ -58,9 +58,9 @@ function JQTree(settings) {
             .removeClass('expand')
             .addClass('collapse');
         $(container)
-            .find('.expand')
+            .find('.collapse')
             .children('ul,ol')
-            .show();
+            .hide();
     }
 
     function expandAll(container) {
@@ -71,7 +71,7 @@ function JQTree(settings) {
         $(container)
             .find('.expand')
             .children('ul,ol')
-            .hide();
+            .show();
     }
 
     /*function appendImages() {

@@ -61,12 +61,12 @@
 }
 
 .JQTree li.expand:before {
-    background-image: url("../img/ic_folder_black_24px.svg");
+    background-image: url("../img/ic_folder_open_black_24px.svg");
     /*background-image: url("../img/ic_keyboard_arrow_down_black_24px.svg");*/
 }
 
 .JQTree li.collapse:before {
-    background-image: url("../img/ic_folder_open_black_24px.svg");
+    background-image: url("../img/ic_folder_black_24px.svg");
     /*background-image: url("../img/ic_keyboard_arrow_up_black_24px.svg");*/
 }
 
