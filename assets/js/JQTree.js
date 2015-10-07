@@ -25,7 +25,7 @@ function JQTree(settings) {
             else
                 collapseAll(settings.container);
         }
-    } // TODO: css background-image lar yok ise svg oluştur onları ekle
+    }
 
     function hasUlorOl(element) {
         var children = $(element).children('ul,ol');
@@ -161,6 +161,6 @@ function cssRulesCheck() {
             cssIndex);
         cssIndex++;
     }
-    console.log(cssFiles);
+    //console.log(cssFiles);
     return true;
 }
