@@ -7,7 +7,7 @@ function JQTree(settings) {
         console.error("JQTree'nin uygulanacagi kapsayici belirtilmelidir!");
         return false;
     } else {
-        if (cssRulesCheck()) {
+        if (cssRulesCheck()) { // css background-image lar var ise başlat
             $(settings.container).addClass('JQTree');
             var allElements = $(settings.container).children("ul,ol");
             allElements.each(function (counter, element) {
@@ -15,11 +15,8 @@ function JQTree(settings) {
                 $(element).find("li,ul,ol").each(function (subCounter, subElement) {
                     var tag = subElement.tagName;
                     if (tag == "LI") {
-
-                    } else {
-
+                        hasUlorOl(subElement);
                     }
-                    hasUlorOl(subElement);
                 })
             });
 
@@ -28,34 +25,30 @@ function JQTree(settings) {
             else
                 expandAll(settings.container);
         }
-    }
+    } // TODO: css background-image lar yok ise svg oluştur onları ekle
 
     function hasUlorOl(element) {
         var children = $(element).children('ul,ol');
         if ($(element).find('ul,ol').length > 0) {
-            if (element.tagName == "LI") {
-                element.classList.add('collapse');
-                element.onclick = function (e) {
-                    if (e.target != this)
-                        return;
-                    $(this).toggleClass(function () {
-                        if ($(this).hasClass('collapse')) {
-                            $(this).children('ul,ol').hide();
-                            $(this).removeClass('collapse');
-                            return 'expand';
-                        } else {
-                            $(this).children('ul,ol').show();
-                            $(this).removeClass('expand');
-                            return 'collapse';
-                        }
-                    });
-                };
-                $.each(children, function (subCounter, subElement) {
-                    hasUlorOl(subElement);
+            element.classList.add('collapse');
+            element.onclick = function (e) {
+                if (e.target != this)
+                    return;
+                $(this).toggleClass(function () {
+                    if ($(this).hasClass('collapse')) {
+                        $(this).children('ul,ol').hide();
+                        $(this).removeClass('collapse');
+                        return 'expand';
+                    } else {
+                        $(this).children('ul,ol').show();
+                        $(this).removeClass('expand');
+                        return 'collapse';
+                    }
                 });
-            }
-        } else {
-            //return false;
+            };
+            $.each(children, function (subCounter, subElement) {
+                hasUlorOl(subElement);
+            });
         }
     }
 
